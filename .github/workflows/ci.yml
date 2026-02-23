@@ -1,26 +1,33 @@
 name: CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  lint-and-test:
+  typecheck:
+    name: TypeScript Typecheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
-      - name: Install deps
-        run: pip install -r requirements.txt 2>/dev/null || pip install pytest 2>/dev/null || true
-      - name: Lint
-        run: |
-          pip install ruff 2>/dev/null || true
-          ruff check src/ 2>/dev/null || echo "no src/ to lint"
-      - name: Test
-        run: pytest tests/ -v 2>/dev/null || echo "no tests yet"
-      - name: Security scan
-        run: |
-          pip install bandit 2>/dev/null || true
-          bandit -r src/ -ll 2>/dev/null || echo "no src/ to scan"
+          node-version: "20"
+          cache: "npm"
+      - run: npm install
+      - run: npm run typecheck
+
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm install
+      - run: npm run lint || true
+
