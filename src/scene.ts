@@ -74,7 +74,7 @@ export class AgentScene {
     });
     
     const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(...agent.position);
+    mesh.position.set(agent.position.x, agent.position.y, agent.position.z);
     mesh.userData = { agent };
     
     this.scene.add(mesh);
@@ -133,12 +133,12 @@ export function createDefaultScene(container: HTMLElement): AgentScene {
   const scene = new AgentScene({ container });
 
   const agents: Agent3D[] = [
-    { name: 'LUCIDIA', type: 'reasoning', position: [0, 0, 0], size: 1.5 },
-    { name: 'ALICE', type: 'worker', position: [8, 0, 0], size: 1.0 },
-    { name: 'OCTAVIA', type: 'devops', position: [-8, 0, 0], size: 1.0 },
-    { name: 'PRISM', type: 'analytics', position: [0, 8, 0], size: 1.0 },
-    { name: 'ECHO', type: 'memory', position: [0, -8, 0], size: 1.0 },
-    { name: 'CIPHER', type: 'security', position: [0, 0, 8], size: 1.0 },
+    { id: 'lucidia', name: 'LUCIDIA', color: '#00BCD4', type: 'reasoning', position: { x: 0, y: 0, z: 0 }, size: 1.5 },
+    { id: 'alice', name: 'ALICE', color: '#4CAF50', type: 'worker', position: { x: 8, y: 0, z: 0 }, size: 1.0 },
+    { id: 'octavia', name: 'OCTAVIA', color: '#9C27B0', type: 'devops', position: { x: -8, y: 0, z: 0 }, size: 1.0 },
+    { id: 'prism', name: 'PRISM', color: '#FFC107', type: 'analytics', position: { x: 0, y: 8, z: 0 }, size: 1.0 },
+    { id: 'echo', name: 'ECHO', color: '#9E9E9E', type: 'memory', position: { x: 0, y: -8, z: 0 }, size: 1.0 },
+    { id: 'cipher', name: 'CIPHER', color: '#F44336', type: 'security', position: { x: 0, y: 0, z: 8 }, size: 1.0 },
   ];
 
   agents.forEach(a => scene.addAgent(a));

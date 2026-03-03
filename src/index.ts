@@ -17,6 +17,8 @@ export interface Agent3D {
   name: string;
   color: string;
   position: { x: number; y: number; z: number };
+  size?: number;
+  type?: string;
 }
 
 export function createAgentMesh(agent: Agent3D): object {
