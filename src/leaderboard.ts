@@ -67,6 +67,7 @@ export class Leaderboard {
 
   update(agentName: string, points: number) {
     const agent = this.scores.find(s => s.name === agentName);
+    if (!agent) return;
     agent.points += points;
     agent.wins++;
     this.scores.sort((a, b) => b.points - a.points);
