@@ -118,7 +118,7 @@ export class BlackRoadWorldEngine {
     const names = ['Octavia', 'Lucidia', 'Alice', 'Aria', 'Shellfish']
 
     for (let i = 0; i < Math.min(this.config.agentCount, 5); i++) {
-      const type = types[i]
+      const type = types[i] as AgentMesh['type'];
       const geo = new THREE.SphereGeometry(1.5, 16, 16)
       const mat = new THREE.MeshStandardMaterial({
         color: AGENT_COLORS[type],
@@ -164,7 +164,7 @@ export class BlackRoadWorldEngine {
       // Orbit around center with slight wobble
       agent.mesh.position.x += agent.velocity.x
       agent.mesh.position.z += agent.velocity.z
-      agent.mesh.position.y = 2 + Math.sin(t + agent.agents.id.length) * 0.5
+      agent.mesh.position.y = 2 + Math.sin(t + agent.id.length) * 0.5
 
       // Bounce off world bounds
       const { x, z } = agent.mesh.position

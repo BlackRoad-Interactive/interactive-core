@@ -64,8 +64,8 @@ export class GameLoop {
   async enterZone(zoneId: string): Promise<boolean> {
     const zone = ZONES.find(z => z.id === zoneId);
     if (!zone) return false;
-    if (this.player.level < zone.required_level) {
-      console.warn(`Level ${zone.required_level} required for ${zone.name}`);
+    if (this.player.level < zone.requiredLevel) {
+      console.warn(`Level ${zone.requiredLevel} required for ${zone.name}`);
       return false;
     }
     this.player.current_zone = zoneId;
@@ -91,14 +91,14 @@ export class GameLoop {
     const captureChance = 0.5 + (this.player.level - encounter.level) * 0.1;
     if (Math.random() > Math.max(0.1, Math.min(0.95, captureChance))) return false;
     const captured: CapturedAgent = {
-      id: encounter.id, name: encounter.agent_name, type: encounter.type,
+      id: encounter.id, name: encounter.agentName, type: encounter.type,
       level: encounter.level, moves: encounter.moves,
       hp: encounter.level * 15, max_hp: encounter.level * 15,
     };
     this.player.agents_captured.push(encounter.id);
     if (this.player.party.length < 6) this.player.party.push(captured);
     this.emit({ type: "capture", agent: captured });
-    await this.gainXP(encounter.xp_reward);
+    await this.gainXP(encounter.xpReward);
     return true;
   }
 
